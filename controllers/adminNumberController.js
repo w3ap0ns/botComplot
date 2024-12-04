@@ -74,3 +74,27 @@ exports.getAllAdminNumbers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// 5. Buscar un administrador
+exports.checkAdminNumberExists = async (req, res) => {
+  try {
+    const { phoneNumber } = req.body; // Obtener el número de teléfono del cuerpo de la solicitud
+
+    // Validar que se proporcione el número de teléfono
+    if (!phoneNumber) {
+      return res.status(400).json({ error: 'Se requiere el número de teléfono en el cuerpo de la petición' });
+    }
+
+    const adminNumber = await AdminNumber.findOne({ phoneNumber });
+
+    if (adminNumber) {
+      res.json({ existe: true });
+    } else {
+      return res.status(404).json({ existe: 'No se encontró ningún administrador con ese número de teléfono.' });
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
