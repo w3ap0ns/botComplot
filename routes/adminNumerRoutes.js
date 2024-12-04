@@ -8,5 +8,6 @@ router.post('/', adminNumberController.createAdminNumber);
 router.put('/:phoneNumber', adminNumberController.updateAdminNumberName);
 router.delete('/:phoneNumber', adminNumberController.deleteAdminNumber);
 router.get('/', adminNumberController.getAllAdminNumbers);
+router.post('/existe', adminNumberController.checkAdminNumberExists);
 
 module.exports = router;
